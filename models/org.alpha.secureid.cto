@@ -1,0 +1,75 @@
+/**
+ * Write your model definitions here
+ */
+
+namespace org.alpha.secureid
+
+participant User identified by userId {
+  o String userId
+  o String name
+  o String email
+  --> AccessHistory history
+  o String[] grantedUsers
+}
+
+concept Date {
+  o Integer date
+  o Integer month
+  o Integer year
+}
+
+enum Gender {
+  o MALE
+  o FEMALE
+  o OTHER
+}
+
+enum Status {
+  o NOT_RESPONDED
+  o GRANTED
+  o REJECTED
+}
+
+concept AccessTransaction {
+  o String txId
+  o Status status
+  o String otherUserId
+}
+
+asset AccessHistory identified by userId {
+  o String userId
+  o AccessTransaction[] received
+  o AccessTransaction[] sent
+}
+
+asset Aadhaar identified by aadhaarNumber {
+  --> User owner
+  o String aadhaarNumber
+  o String firstName
+  o String lastName
+  o Date dob
+  o Gender gender
+  o String address
+}
+
+transaction RequestAccess {
+  --> User from
+  --> User to
+}
+
+transaction GrantAccess {
+  o String reqTxnId
+  --> User from
+  --> User to
+}
+
+transaction RejectAccess {
+  o String reqTxnId
+  --> User from
+  --> User to
+}
+
+transaction ViewAadhaar {
+  --> User from
+  --> User to
+}

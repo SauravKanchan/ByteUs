@@ -1,0 +1,31 @@
+/**
+ * New query file
+ */
+
+query selectUsers {
+  	description: "Select all the relevant users"
+  	statement:
+  		SELECT org.alpha.secureid.User
+  			WHERE ( _$users CONTAINS userId )
+}
+
+query selectRequestTransaction {
+	description: "Select the relevant transactions"
+ 	statement:
+  		SELECT org.alpha.secureid.RequestAccess
+  			WHERE ( _$txns CONTAINS transactionId )
+}
+
+query selectGrantTransaction {
+	description: "Select the relevant transactions"
+ 	statement:
+  		SELECT org.alpha.secureid.GrantAccess
+  			WHERE ( _$txns CONTAINS transactionId )
+}
+
+query selectRejectTransaction {
+	description: "Select the relevant transactions"
+ 	statement:
+  		SELECT org.alpha.secureid.RejectAccess
+  			WHERE ( _$txns CONTAINS transactionId )
+}

@@ -1,0 +1,103 @@
+/**
+ * Access Control List for the bond data
+ */ 
+
+rule UserAccess {
+  description: "something"
+  participant(u): "org.alpha.secureid.User"
+  operation: READ, UPDATE
+  resource(r): "org.alpha.secureid.User"
+  condition: (u.getIdentifier() == r.getIdentifier())
+  action: ALLOW
+}
+
+rule OtherUserAccess {
+  description: "something"
+  participant(u): "org.alpha.secureid.User"
+  operation: READ
+  resource(r): "org.alpha.secureid.User"
+  condition: (u.getIdentifier() != r.getIdentifier())
+  action: ALLOW
+}
+
+rule OthersAadhaarAccess {
+  description: "Allow other users to access aadhaar if access is granted"
+  participant(u): "org.alpha.secureid.User"
+  operation: READ
+  resource(r): "org.alpha.secureid.Aadhaar"
+  condition: (r.owner.grantedUsers.indexOf(u.getIdentifier()) >= 0 ? true: false)
+  action: ALLOW
+}
+
+rule OwnAadhaarAccess {
+  description: "Allow user to access his own aadhaar"
+  participant(u): "org.alpha.secureid.User"
+  operation: READ
+  resource(a): "org.alpha.secureid.Aadhaar"
+  condition: (a.owner.userId === u.userId)
+  action: ALLOW
+}
+
+rule AccessHistoryAccess {
+  description: "Allow all users to update access history"
+  participant: "org.alpha.secureid.User"
+  operation: READ, UPDATE
+  resource: "org.alpha.secureid.AccessHistory"
+  action: ALLOW
+}
+
+rule RejectAccessTrans {
+  description: "Allow all users to update access history"
+  participant: "org.alpha.secureid.User"
+  operation: CREATE, READ
+  resource: "org.alpha.secureid.RejectAccess"
+  action: ALLOW
+}
+
+rule ReequestAccessTrans {
+  description: "Allow all users to update access history"
+  participant: "org.alpha.secureid.User"
+  operation: CREATE, READ
+  resource: "org.alpha.secureid.RequestAccess"
+  action: ALLOW
+}
+
+rule GrantAccessTrans {
+  description: "Allow all users to update access history"
+  participant: "org.alpha.secureid.User"
+  operation: CREATE, READ
+  resource: "org.alpha.secureid.GrantAccess"
+  action: ALLOW
+}
+
+rule ViewAadhaarTrans {
+  description: "Allow all users to update access history"
+  participant: "org.alpha.secureid.User"
+  operation: CREATE, READ
+  resource: "org.alpha.secureid.ViewAadhaar"
+  action: ALLOW
+}
+
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+  description: "Grant business network administrators full access to user resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "**"
+  action: ALLOW
+}
+
+rule NetworkAdminSystem {
+  description: "Grant business network administrators full access to system resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
