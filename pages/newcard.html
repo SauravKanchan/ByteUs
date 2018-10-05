@@ -142,6 +142,8 @@
                             <p class="card-description">
                               Fill Card Details
                             </p>
+                            <button id="uploadbtn" data-toggle="modal" data-target="#uploadModal" class="btn btn-success pull-right" style="margin-left:280px; color:white">Upload Scanned Copy</button>
+
                             <form class="forms-sample">
                               <div class="form-group">
                                 <label for="exampleInputName1">Owner</label>
@@ -149,15 +151,15 @@
                               </div>
                               <div class="form-group">
                                     <label for="exampleInputName1">Aadhar Number</label>
-                                    <input type="text" class="form-control" id="aadhaar-number" placeholder="Owner">
+                                    <input type="text" class="form-control" id="aadhaar-number" placeholder="Aadhar Number">
                                   </div>
                                   <div class="form-group">
                                         <label for="exampleInputName1">First Name</label>
-                                        <input type="text" class="form-control" id="first-name" placeholder="Owner">
+                                        <input type="text" class="form-control" id="first-name" placeholder="First Name">
                                       </div>
                                       <div class="form-group">
                                             <label for="exampleInputName1">Last Name</label>
-                                            <input type="text" class="form-control" id="last-name" placeholder="Owner">
+                                            <input type="text" class="form-control" id="last-name" placeholder="Last Name">
                                           </div>
                                           <div class="form-group">
                                                 <label class="col-form-label">Date of Birth</label>
@@ -213,6 +215,31 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+
+  <div id="uploadModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">File upload form</h4>
+            </div>
+            <div class="modal-body">
+              <!-- Form -->
+              <form method='post' action='' enctype="multipart/form-data">
+                Select file : <input type='file' name='file' id='file' class='form-control' ><br>
+                <input type='button' class='btn btn-info' value='Upload' id='upload'>
+              </form>
+      
+              <!-- Preview-->
+              <div id='preview'></div>
+            </div>
+       
+          </div>
+      
+        </div>
+      </div>
   <!-- container-scroller -->
 
   <!-- plugins:js -->
@@ -227,6 +254,87 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="../js/dashboard.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+  <script>
+    $('#upload').click(function(){
+        swal("Performing OCR", "Please Wait");
+        x = encodeURIComponent("https://i.imgur.com/B8dmI6L.png");
+     // console.log(x);
+    $.ajax({
+        contentType: 'application/json; charset=utf-8',crossDomain: true,
+        url: "https://cors-anywhere.herokuapp.com/http://api.qrserver.com/v1/read-qr-code/?fileurl="+x, 
+        type:"POST",
+        success: function(result){
+            $('#uploadModal').modal('hide');
+            swal("Success!", "Detected details correctly","success");
+            console.log(result);
+        data = result[0].symbol[0].data;
+        data = $.parseXML(data);
+        json = xmlToJson(data);
+        data = json.QDA["@attributes"];
+        firstName = data.n.split(" ")[0];
+        lastName = data.n.split(" ").slice(-1).pop();
+        uid = data.u;
+        dob = data.d;
+        address = data.a;
+        $('#address').val(address);
+        $('#first-name').val(firstName);
+        $('#last-name').val(lastName);
+        $('#aadhaar-number').val(uid);
+        $('#dob').val(dob);
+        console.log(data.g);
+        if(data.g=='M'){
+            optionsRadios1.checked = true;
+        }else if(data.g=='F'){
+            optionsRadios2.checked = true;
+        }else{
+            optionsRadios3.checked = true;
+        }
+    }});
+    });
+  $("#uploadbtn").click(function(){
+      
+});
+
+function xmlToJson(xml) {
+	
+	// Create the return object
+	var obj = {};
+
+	if (xml.nodeType == 1) { // element
+		// do attributes
+		if (xml.attributes.length > 0) {
+		obj["@attributes"] = {};
+			for (var j = 0; j < xml.attributes.length; j++) {
+				var attribute = xml.attributes.item(j);
+				obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
+			}
+		}
+	} else if (xml.nodeType == 3) { // text
+		obj = xml.nodeValue;
+	}
+
+	// do children
+	if (xml.hasChildNodes()) {
+		for(var i = 0; i < xml.childNodes.length; i++) {
+			var item = xml.childNodes.item(i);
+			var nodeName = item.nodeName;
+			if (typeof(obj[nodeName]) == "undefined") {
+				obj[nodeName] = xmlToJson(item);
+			} else {
+				if (typeof(obj[nodeName].push) == "undefined") {
+					var old = obj[nodeName];
+					obj[nodeName] = [];
+					obj[nodeName].push(old);
+				}
+				obj[nodeName].push(xmlToJson(item));
+			}
+		}
+	}
+	return obj;
+};
+  
+  </script>
   <!-- End custom js for this page-->
 </body>
 
