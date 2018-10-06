@@ -10,14 +10,13 @@
 - Step 2: Upload your Aadhar (Identity document).
 - Step 3: All your details will be auto filled, extracted from your         upload using OCR.
 - Step 4: Your details are now added to the Hyperledger blockchain.
-- Step 5: You can choose to grant or reject access to other users to view   your documents.
-- Step 6:  
+- Step 5: You can choose to grant or reject access to other users to view   your documents. 
 
 # HyperLedger Vs Ethereum:
-- Gas
+- Takes no Gas
 - Inefficient
-- HyperLedger 50,0000 TPM(Transaction Per Minute), Ehterium 1000TPM
-- 51% Attack
+- HyperLedger 50,0000 TPM(Transaction Per Minute) VS Ehterium 1000TPM
+- Immune to the 51% Attack
 
 ![Architecture](images/architecture.png)
 
