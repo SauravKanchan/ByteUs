@@ -194,7 +194,7 @@
                             url: 'http://188.166.102.233:3000/api/Aadhaar',
                             success: (data) => {
                               data.map(card => {
-                                let newCard = $('.aadhaar-card-container').clone()
+                                let newCard = $('.aadhaar-card-container:first-child').clone()
                                 newCard.removeClass('hidden')
                                 newCard.find('.address').html(card.address)
                                 newCard.find('.gender').html(card.gender)

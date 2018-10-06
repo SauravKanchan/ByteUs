@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <script src="../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -192,7 +193,7 @@
                                               </div>
                                              
                                               <br>
-                              <button type="submit" class="create-card btn btn-success mr-2">Submit</button>
+                              <button type="button" class="create-card btn btn-success mr-2">Submit</button>
                              <a  class="btn btn-light" href="../index.html">Cancel</a> 
                             </form>
                           </div>
@@ -254,7 +255,6 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="../js/dashboard.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
   <script>
       function filename(){
         name = $('#file').val().split("\\")[2];
@@ -292,11 +292,11 @@
         },
         success: () => {
           swal.close()
-          window.location = ''
+          setTimeout(() => window.location = '', 1000)
         },
         error: () => {
           swal('Error Occurred', '', 'error')
-          window.location = ''
+          setTimeout(() => window.location = '', 1000)
         }
       })
 
