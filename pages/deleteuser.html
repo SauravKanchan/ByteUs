@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -33,7 +35,7 @@
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
-          
+
           <li class="nav-item active">
             <a href="#" class="nav-link">
               <i class="mdi mdi-elevation-rise"></i>Reports</a>
@@ -43,7 +45,7 @@
               <i class="mdi mdi-bookmark-plus-outline"></i>View Cards</a>
           </li>
         </ul>
-        
+
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>
         </button>
@@ -68,9 +70,9 @@
                   </div>
                 </div>
               </div>
-                <a href="../pages/newcard.html" class="btn btn-success btn-block" style="color:white;">New Card
+              <a href="../pages/newcard.html" class="btn btn-success btn-block" style="color:white;">New Card
                 <i class="mdi mdi-plus"></i>
-                </a>
+              </a>
             </div>
           </li>
           <li class="nav-item">
@@ -81,9 +83,9 @@
             </a>
             <div class="collapse" id="user">
               <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                      <a class="nav-link" href="../pages/newuser.html">Create New User</a>
-                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../pages/newuser.html">Create New User</a>
+                </li>
                 <li class="nav-item">
                   <a class="nav-link" href="../pages/userdetails.html">Get User Details</a>
                 </li>
@@ -104,96 +106,129 @@
                 <li class="nav-item">
                   <a class="nav-link" href="../pages/viewdetails.html">View Details</a>
                 </li>
-  
+
               </ul>
             </div>
           </li>
           <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#permission" aria-expanded="false" aria-controls="permission">
-                <i class="menu-icon mdi mdi-content-copy"></i>
-                <span class="menu-title">Permission Management</span>
-                <i class="menu-arrow"></i>
-              </a>
-              <div class="collapse" id="permission">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="../pages/request_permissions.html">Request Permission</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="../pages/manage_requests.html">Manage Requests</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-         
+            <a class="nav-link" data-toggle="collapse" href="#permission" aria-expanded="false" aria-controls="permission">
+              <i class="menu-icon mdi mdi-content-copy"></i>
+              <span class="menu-title">Permission Management</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="permission">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="../pages/request_permissions.html">Request Permission</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../pages/manage_requests.html">Manage Requests</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
         </ul>
       </nav>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-                <div class="row">
-                        <div class="col-lg-12 grid-margin">
-                          <div class="card">
-                            <div class="card-body">
-                              <h4 class="card-title">User Details</h4>
-                              <div class="table-responsive">
-                                <table class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>
-                                        #
-                                      </th>
-                                      <th>
-                                        User ID
-                                      </th>
-                                      <th>
-                                        Name
-                                      </th>
-                                      <th>
-                                            Email
-                                          </th>
-                                          <th>
-                                                Action
-                                              </th>
-                                      
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td class="font-weight-medium">
-                                        1
-                                      </td>
-                                      <td>
-                                         Test.js
-                                      </td>
-                                      <td>
-                                            Test
-                                        </td>
-                                        <td>
-                                                test@example.com
-                                            </td>
-                                            <td>
-                                                    <button class="btn btn-danger">Delete</button>
-                                                </td>
-                                     
-                                    </tr>
-                                   
-                                    
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-         
+          <div class="row">
+            <div class="col-lg-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">User Details</h4>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>
+                            #
+                          </th>
+                          <th>
+                            User ID
+                          </th>
+                          <th>
+                            Name
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                          <th>
+                            Action
+                          </th>
+
+                        </tr>
+                      </thead>
+                      <tbody id="users-table">
+                        <tr>
+                          <td class="font-weight-medium">
+                            1
+                          </td>
+                          <td>
+                            Test.js
+                          </td>
+                          <td>
+                            Test
+                          </td>
+                          <td>
+                            test@example.com
+                          </td>
+                          <td>
+                            <button class="btn btn-danger">Delete</button>
+                          </td>
+
+                        </tr>
+
+
+                      </tbody>
+                    </table>
+                    <script>
+                      $.ajax({
+                        url: "http://159.65.149.36:3000/api/User",
+                        success: (data) => {
+                          let rows = ""
+                          let i = 0
+                          data.map(user => {
+                            i+=1
+                            rows += `
+                              <tr>
+                              <td>${i}</td>
+                              <td>${user.userId}</td>
+                              <td>${user.name}</td>
+                              <td>${user.email}</td>
+                              <td>
+                              <button class="btn btn-danger" onclick="deleteUser(${user.userId})">Delete</button>
+                              </td>
+                              </tr>
+                            `
+                          })
+                          $('tbody#users-table').html(rows)
+                        }
+                      })
+function deleteUser(userId) {
+  $.ajax({
+    type: "DELETE",
+    url: `http://159.65.149.36:3000/api/User/${userId}`,
+    success: (data) => {
+      window.location=""
+    }
+})
+}
+                    </script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018.
-               All rights reserved.</span>
+              All rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
               <i class="mdi mdi-heart text-danger"></i> By Team ByteUs
             </span>
@@ -208,8 +243,6 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
@@ -222,4 +255,4 @@
   <!-- End custom js for this page-->
 </body>
 
-</html> 
+          </html> 

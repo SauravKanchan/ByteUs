@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -155,7 +157,7 @@
                                       
                                     </tr>
                                   </thead>
-                                  <tbody>
+                                  <tbody id="users-table">
                                     <tr>
                                       <td class="font-weight-medium">
                                         1
@@ -175,6 +177,27 @@
                                     
                                   </tbody>
                                 </table>
+                                <script>
+                                  $.ajax({
+                                    url: "http://159.65.149.36:3000/api/User",
+                                    success: (data) => {
+                                      let rows = ""
+                                      let i = 0
+                                      data.map(user => {
+                                        i+=1
+                                        rows += `
+                                          <tr>
+                                            <td>${i}</td>
+                                            <td>${user.userId}</td>
+                                            <td>${user.name}</td>
+                                            <td>${user.email}</td>
+                                          </tr>
+                                        `
+                                      })
+                                      $('tbody#users-table').html(rows)
+                                    }
+                                  })
+                                </script>
                               </div>
                             </div>
                           </div>
@@ -202,8 +225,6 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->

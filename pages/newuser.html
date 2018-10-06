@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -142,7 +144,7 @@
                             <p class="card-description">
                               Fill User Details
                             </p>
-                            <form class="forms-sample">
+                            <form action="#" class="forms-sample">
                                     <div class="form-group">
                                             <label for="exampleInputName1">User ID</label>
                                             <input type="text" class="form-control" id="userid" placeholder="User ID">
@@ -155,46 +157,74 @@
                                 <label for="exampleInputEmail3">Email address</label>
                                 <input type="email" class="form-control" id="mail" placeholder="Email">
                               </div>
-                              <button type="submit" class="btn btn-success mr-2">Submit</button>
-                             <a  class="btn btn-light" href="../index.html">Cancel</a> 
+                              <button type="button" class="create-user btn btn-success mr-2">Submit</button>
+                              <script>
+                                $('.create-user').on('click', () => {
+                                  let id = $('input#userid').val()
+                                  let name = $('input#name').val()
+                                  let email = $('input#mail').val()
+                                  $.ajax({
+                                    url: 'http://159.65.149.36:3000/api/User',
+                                    type: 'POST',
+                                    data: {
+                                      "$class": "org.alpha.secureid.User",
+                                      "userId": id,
+                                      "name": name,
+                                      "email": email,
+                                      "history": `resource:org.alpha.secureid.AccessHistory#${id}`,
+                                      "grantedUsers": []
+                                    }
+                                  });
+
+                                  $.ajax({
+                                    url: 'http://159.65.149.36:3000/api/AccessHistory',
+                                    type: 'POST',
+                                    data: {
+                                      "$class": "org.alpha.secureid.AccessHistory",
+                                      "userId": id,
+                                      "received": [],
+                                      "sent": []
+                                    },
+                                  });
+                                });
+                              </script>
+                              <a  class="btn btn-light" href="../index.html">Cancel</a> 
                             </form>
                           </div>
                         </div>
                       </div>
-         
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="container-fluid clearfix">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018.
-               All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-              <i class="mdi mdi-heart text-danger"></i> By Team ByteUs
-            </span>
-          </div>
-        </footer>
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
 
-  <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="../js/off-canvas.js"></script>
-  <script src="../js/misc.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="../js/dashboard.js"></script>
-  <!-- End custom js for this page-->
-</body>
+                    </div>
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+                    <footer class="footer">
+                      <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018.
+                          All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+                          <i class="mdi mdi-heart text-danger"></i> By Team ByteUs
+                        </span>
+                      </div>
+                    </footer>
+                    <!-- partial -->
+                  </div>
+                  <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+              </div>
+              <!-- container-scroller -->
 
-</html>
+              <!-- plugins:js -->
+              <!-- endinject -->
+              <!-- Plugin js for this page-->
+              <!-- End plugin js for this page-->
+              <!-- inject:js -->
+              <script src="../js/off-canvas.js"></script>
+              <script src="../js/misc.js"></script>
+              <!-- endinject -->
+              <!-- Custom js for this page-->
+              <script src="../js/dashboard.js"></script>
+              <!-- End custom js for this page-->
+            </body>
+
+          </html>
