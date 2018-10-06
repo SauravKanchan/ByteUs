@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -227,7 +229,7 @@
             </div>
             <div class="modal-body">
               <!-- Form -->
-              <form method='post' action='' enctype="multipart/form-data">
+              <form method='post' action='#' enctype="multipart/form-data">
                 Select file : <input type='file' name='file' id='file' class='form-control' ><br>
                 <input type='button' class='btn btn-info' value='Upload' id='upload'>
               </form>
@@ -243,8 +245,6 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
@@ -267,16 +267,22 @@
       $.ajax({
         type: 'POST',
         url: 'http://159.65.149.36:3000/api/Aadhaar',
-        data: {
+        data: JSON.stringify({
           "$class": "org.alpha.secureid.Aadhaar",
           "owner": `resource:org.alpha.secureid.User#${owner}`,
           "aadhaarNumber": aadharNo,
           "firstName": firstName,
           "lastName": lastName,
-          "dob": dob,
+          "dob": {
+            "$class": "org.alpha.secureid.Date",
+            "date": 30,
+            "month": 4,
+            "year": 1998
+          },
           "gender": gender,
           "address": address
-        }
+        }),
+        contentType: "application/json"
 
       })
 

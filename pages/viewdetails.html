@@ -10,10 +10,17 @@
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
+  <style type="text/css" media="screen">
+    .hidden {
+      display: none !important;
+    }
+  </style>
   <link rel="stylesheet" href="../css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
@@ -131,8 +138,8 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-                <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+                <div class="row aadhaar-cards">
+                        <div class="aadhaar-card-container col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card hidden">
                           <div class="card card-statistics">
                             <div class="card-body">
                               <div class="clearfix">
@@ -142,35 +149,35 @@
                                 <div class="float-right">
                                   <p class="mb-0 text-right">Full Name</p>
                                   <div class="fluid-container">
-                                    <h3 class="font-weight-medium text-right" style="margin-bottom:25px">Test Admin</h3>
+                                    <h3 class="font-weight-medium text-right full-name" style="margin-bottom:25px">Test Admin</h3>
                                   </div>
                                 </div>
                                 <br><br>
                                 <div class="float-left">
                                         <p class="mb-0 text-left">Aadhaar Number</p>
                                         <div class="fluid-container">
-                                          <h4 class="font-weight-medium text-left" style="margin-bottom:15px">4029 2550 3412 4930</h4>
+                                          <h4 class="font-weight-medium text-left aadhaar-no" style="margin-bottom:15px">4029 2550 3412 4930</h4>
                                         </div>
                                       </div>
                                       
                                       <div class="float-left">
                                             <p class="mb-0 text-left">Date of Birth</p>
                                             <div class="fluid-container">
-                                              <h4 class="font-weight-medium text-left" style="margin-bottom:15px;padding-right:20px !important;">02/10/1998</h4>
+                                              <h4 class="font-weight-medium text-left dob" style="margin-bottom:15px;padding-right:20px !important;">02/10/1998</h4>
                                             </div>
                                           </div>
                                           
                                           <div  style="margin-right:40px !important;" class="float-left">
                                                 <p class="mb-0 text-left">Gender</p>
                                                 <div class="fluid-container">
-                                                  <h4 class="font-weight-medium text-left" style="width:100% !important;">Male</h4>
+                                                  <h4 class="font-weight-medium gender text-left" style="width:100% !important;">Male</h4>
                                                 </div>
                                               </div>
                                               
                                               <div class="float-left">
                                                     <p class="mb-0 text-left">Address</p>
                                                     <div class="fluid-container">
-                                                      <h4 class="font-weight-medium text-left" style="margin-bottom:15px">Test Address, Big Test, Adkaosk, 2301, Mumbai 400001.</h4>
+                                                      <h4 class="font-weight-medium text-left address" style="margin-bottom:15px">Test Address, Big Test, Adkaosk, 2301, Mumbai 400001.</h4>
                                                     </div>
                                                   </div>
                               </div>
@@ -180,43 +187,55 @@
                             </div>
                           </div>
                         </div>
-                        
-                        
-                        
+                        <script>
+                          $.ajax({
+                            url: 'http://159.65.149.36:3000/api/Aadhaar',
+                            success: (data) => {
+                              data.map(card => {
+                                let newCard = $('.aadhaar-card-container').clone()
+                                newCard.removeClass('hidden')
+                                newCard.find('.address').html('temp addr')
+                                newCard.find('.gender').html('temp addr')
+                                newCard.find('.dob').html('temp addr')
+                                newCard.find('.aadhaar-no').html('temp addr')
+                                newCard.find('.full-name').html('temp addr')
+                                newCard.appendTo('.aadhaar-cards')
+                              })
+                            }
+                          })
+                        </script>
                       </div>
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-          <div class="container-fluid clearfix">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018.
-               All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-              <i class="mdi mdi-heart text-danger"></i> By Team ByteUs
-            </span>
-          </div>
-        </footer>
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
+                    </div>
+                    <!-- content-wrapper ends -->
+                    <!-- partial:partials/_footer.html -->
+                    <footer class="footer">
+                      <div class="container-fluid clearfix">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018.
+                          All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+                          <i class="mdi mdi-heart text-danger"></i> By Team ByteUs
+                        </span>
+                      </div>
+                    </footer>
+                    <!-- partial -->
+                  </div>
+                  <!-- main-panel ends -->
+                </div>
+                <!-- page-body-wrapper ends -->
+              </div>
+              <!-- container-scroller -->
 
-  <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="../js/off-canvas.js"></script>
-  <script src="../js/misc.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="../js/dashboard.js"></script>
-  <!-- End custom js for this page-->
-</body>
+              <!-- plugins:js -->
+              <!-- endinject -->
+              <!-- Plugin js for this page-->
+              <!-- End plugin js for this page-->
+              <!-- inject:js -->
+              <script src="../js/off-canvas.js"></script>
+              <script src="../js/misc.js"></script>
+              <!-- endinject -->
+              <!-- Custom js for this page-->
+              <script src="../js/dashboard.js"></script>
+              <!-- End custom js for this page-->
+            </body>
 
-</html> 
+          </html> 
