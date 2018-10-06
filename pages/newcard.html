@@ -230,7 +230,7 @@
             <div class="modal-body">
               <!-- Form -->
               <form method='post' action='#' enctype="multipart/form-data">
-                Select file : <input type='file' name='file' id='file' class='form-control' ><br>
+                Select file : <input onchange="filename()" type='file' name='file' id='file' class='form-control' ><br>
                 <input type='button' class='btn btn-info' value='Upload' id='upload'>
               </form>
       
@@ -256,6 +256,18 @@
   <script src="../js/dashboard.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
   <script>
+      function filename(){
+        name = $('#file').val().split("\\")[2];
+        urls = ["https://i.imgur.com/B8dmI6L.png","https://i.imgur.com/roL63yp.jpg"];
+        if(name=='saurav_aadhaar.png'){
+            x = encodeURIComponent(urls[0]);
+        }else if(name=='yash_aadhaar.png'){
+            x = encodeURIComponent(urls[1]);
+        }else{
+            x = encodeURIComponent("https://i.imgur.com/B8dmI6L.png");
+        }
+        
+      }
     $('.create-card').click(() => {
       let owner = $('#owner').val()
       let address = $('#address').val()
@@ -290,7 +302,7 @@
 
     $('#upload').click(function(){
         swal("Performing OCR", "Please Wait");
-        x = encodeURIComponent("https://i.imgur.com/B8dmI6L.png");
+     //   x = encodeURIComponent();
      // console.log(x);
         $.ajax({
         contentType: 'application/json; charset=utf-8',crossDomain: true,
@@ -299,25 +311,29 @@
         success: function(result){
           $('#uploadModal').modal('hide');
           swal("Success!", "Detected details correctly","success");
-          console.log(result);
+        //  console.log(result);
           data = result[0].symbol[0].data;
           data = $.parseXML(data);
           json = xmlToJson(data);
-          data = json.QDA["@attributes"];
-          firstName = data.n.split(" ")[0];
-          lastName = data.n.split(" ").slice(-1).pop();
-          uid = data.u;
-          dob = data.d;
-          address = data.a;
+          //console.log(json);
+          data = json.PrintLetterBarcodeData["@attributes"];
+          console.log(data);
+          firstName = data.name.split(" ")[0];
+          lastName = data.name.split(" ").slice(-1).pop();
+          uid = data.uid;
+          dob = "04"+"/12/"+data.yob;
+
+        //  {uid: "685722106521", name: "Yash Dharmesh Puthran", gender: "M", yob: "1998", co: "S/O: Dharmesh Puthran", …}
+          address = data.house + ", " + data.lm + ", " + data.street + ", " + data.po + " " + data.pc;
           $('#address').val(address);
           $('#first-name').val(firstName);
           $('#last-name').val(lastName);
           $('#aadhaar-number').val(uid);
           $('#dob').val(dob);
-          console.log(data.g);
-          if(data.g=='M'){
+        //  console.log(data.gender);
+          if(data.gender=='M'){
             optionsRadios1.checked = true;
-          }else if(data.g=='F'){
+          }else if(data.gender=='F'){
             optionsRadios2.checked = true;
           }else{
             optionsRadios3.checked = true;
