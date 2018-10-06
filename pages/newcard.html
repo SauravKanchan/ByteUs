@@ -269,6 +269,7 @@
         
       }
     $('.create-card').click(() => {
+      swal('Creating Card', 'Please Wait!')
       let owner = $('#owner').val()
       let address = $('#address').val()
       let firstName = $('#first-name').val()
@@ -278,24 +279,25 @@
       let gender = optionsRadios1.checked ? 'MALE' : (optionsRadios2.checked ? 'FEMALE' : 'OTHER')
       $.ajax({
         type: 'POST',
-        url: 'http://159.65.149.36:3000/api/Aadhaar',
-        data: JSON.stringify({
+        url: 'http://188.166.102.233:3000/api/Aadhaar',
+        data: {
           "$class": "org.alpha.secureid.Aadhaar",
           "owner": `resource:org.alpha.secureid.User#${owner}`,
           "aadhaarNumber": aadharNo,
           "firstName": firstName,
           "lastName": lastName,
-          "dob": {
-            "$class": "org.alpha.secureid.Date",
-            "date": 30,
-            "month": 4,
-            "year": 1998
-          },
+          "dob": dob,
           "gender": gender,
           "address": address
-        }),
-        contentType: "application/json"
-
+        },
+        success: () => {
+          swal.close()
+          window.location = ''
+        },
+        error: () => {
+          swal('Error Occurred', '', 'error')
+          window.location = ''
+        }
       })
 
     })

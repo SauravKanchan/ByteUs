@@ -191,19 +191,19 @@
                         <script>
                           swal('Fetching Cards', 'Please Wait')
                           $.ajax({
-                            url: 'http://159.65.149.36:3000/api/Aadhaar',
+                            url: 'http://188.166.102.233:3000/api/Aadhaar',
                             success: (data) => {
                               data.map(card => {
                                 let newCard = $('.aadhaar-card-container').clone()
                                 newCard.removeClass('hidden')
-                                newCard.find('.address').html('temp addr')
-                                newCard.find('.gender').html('temp addr')
-                                newCard.find('.dob').html('temp addr')
-                                newCard.find('.aadhaar-no').html('temp addr')
-                                newCard.find('.full-name').html('temp addr')
+                                newCard.find('.address').html(card.address)
+                                newCard.find('.gender').html(card.gender)
+                                newCard.find('.dob').html(card.dob)
+                                newCard.find('.aadhaar-no').html(card.aadharNumber)
+                                newCard.find('.full-name').html(`${card.firstName} ${card.lastName}`)
                                 newCard.appendTo('.aadhaar-cards')
-                                swal.close()
                               })
+                                swal.close()
                             }
                           })
                         </script>
