@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <script src="../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -192,7 +193,7 @@
                                               </div>
                                              
                                               <br>
-                              <button type="submit" class="create-card btn btn-success mr-2">Submit</button>
+                              <button type="button" class="create-card btn btn-success mr-2">Submit</button>
                              <a  class="btn btn-light" href="../index.html">Cancel</a> 
                             </form>
                           </div>
@@ -254,7 +255,6 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="../js/dashboard.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
   <script>
       function filename(){
         name = $('#file').val().split("\\")[2];
@@ -269,6 +269,7 @@
         
       }
     $('.create-card').click(() => {
+      swal('Creating Card', 'Please Wait!')
       let owner = $('#owner').val()
       let address = $('#address').val()
       let firstName = $('#first-name').val()
@@ -278,24 +279,25 @@
       let gender = optionsRadios1.checked ? 'MALE' : (optionsRadios2.checked ? 'FEMALE' : 'OTHER')
       $.ajax({
         type: 'POST',
-        url: 'http://159.65.149.36:3000/api/Aadhaar',
-        data: JSON.stringify({
+        url: 'http://188.166.102.233:3000/api/Aadhaar',
+        data: {
           "$class": "org.alpha.secureid.Aadhaar",
           "owner": `resource:org.alpha.secureid.User#${owner}`,
           "aadhaarNumber": aadharNo,
           "firstName": firstName,
           "lastName": lastName,
-          "dob": {
-            "$class": "org.alpha.secureid.Date",
-            "date": 30,
-            "month": 4,
-            "year": 1998
-          },
+          "dob": dob,
           "gender": gender,
           "address": address
-        }),
-        contentType: "application/json"
-
+        },
+        success: () => {
+          swal.close()
+          setTimeout(() => window.location = '', 1000)
+        },
+        error: () => {
+          swal('Error Occurred', '', 'error')
+          setTimeout(() => window.location = '', 1000)
+        }
       })
 
     })

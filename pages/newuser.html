@@ -164,8 +164,9 @@
                                   let id = $('input#userid').val()
                                   let name = $('input#name').val()
                                   let email = $('input#mail').val()
+                                  swal('Creating User', "Please Wait")
                                   $.ajax({
-                                    url: 'http://159.65.149.36:3000/api/User',
+                                    url: 'http://188.166.102.233:3000/api/User',
                                     type: 'POST',
                                     data: {
                                       "$class": "org.alpha.secureid.User",
@@ -174,18 +175,21 @@
                                       "email": email,
                                       "history": `resource:org.alpha.secureid.AccessHistory#${id}`,
                                       "grantedUsers": []
-                                    }
-                                  });
-
-                                  $.ajax({
-                                    url: 'http://159.65.149.36:3000/api/AccessHistory',
-                                    type: 'POST',
-                                    data: {
-                                      "$class": "org.alpha.secureid.AccessHistory",
-                                      "userId": id,
-                                      "received": [],
-                                      "sent": []
                                     },
+                                    success: () => {
+                                      $.ajax({
+                                        url: 'http://188.166.102.233:3000/api/AccessHistory',
+                                        type: 'POST',
+                                        data: {
+                                          "$class": "org.alpha.secureid.AccessHistory",
+                                          "userId": id,
+                                        },
+                                        success: () => {
+                                          swal('Success!', 'User successfuly created', 'success')
+                                          setTimeout(() => window.location='', 1000)
+                                        }
+                                      });
+                                    }
                                   });
                                 });
                               </script>

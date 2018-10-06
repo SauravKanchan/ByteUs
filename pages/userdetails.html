@@ -144,9 +144,6 @@
                                   <thead>
                                     <tr>
                                       <th>
-                                        #
-                                      </th>
-                                      <th>
                                         User ID
                                       </th>
                                       <th>
@@ -159,37 +156,17 @@
                                     </tr>
                                   </thead>
                                   <tbody id="users-table">
-                                    <tr>
-                                      <td class="font-weight-medium">
-                                        1
-                                      </td>
-                                      <td>
-                                         Test.js
-                                      </td>
-                                      <td>
-                                            Test
-                                        </td>
-                                        <td>
-                                                test@example.com
-                                            </td>
-                                     
-                                    </tr>
-                                   
-                                    
                                   </tbody>
                                 </table>
                                 <script>
                                   swal('Fetching Users', 'Please Wait')
                                   $.ajax({
-                                    url: "http://159.65.149.36:3000/api/User",
+                                    url: "http://188.166.102.233:3000/api/User",
                                     success: (data) => {
                                       let rows = ""
-                                      let i = 0
                                       data.map(user => {
-                                        i+=1
                                         rows += `
                                           <tr>
-                                            <td>${i}</td>
                                             <td>${user.userId}</td>
                                             <td>${user.name}</td>
                                             <td>${user.email}</td>

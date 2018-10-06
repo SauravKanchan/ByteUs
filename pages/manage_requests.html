@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
+  <style type="text/css" media="screen">
+    .hidden {
+      display: none !important;
+    }
+  </style>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -135,24 +142,20 @@
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title mb-4">Manage Tickets</h5>
-                            <div class="fluid-container">
-                              <div class="row ticket-card mt-3">
+                            <div class="fluid-container requests">
+                              <div class="row request hidden ticket-card mt-3">
                                 
                                 <div class="ticket-details col-md-9">
                                   <div class="d-flex">
-                                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">FROM : ID </p><br>
-                                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">TO : ID </p>
-                                    <p class="text-primary mr-1 mb-0">[#TxnID]</p>
+                                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">FROM : <span class="from-id"></span></p><br>
+                                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">TO : <span class="to-id"></span></p>
                              
                                   </div>
+                                    <p class="text-primary mr-1 mb-0"><span class="txn-id"></span></p>
                                   <div class="row text-gray d-md-flex d-none">
-                                    <div class="col-4 d-flex">
-                                      <small class="mb-0 mr-2 text-muted">Date Requested :</small>
-                                      <small class="Last-responded mr-2 mb-0 text-muted">2018-10-05</small>
-                                    </div>
-                                    <div class="col-4 d-flex">
-                                      <small class="mb-0 mr-2 text-muted">Time :</small>
-                                      <small class="Last-responded mr-2 mb-0 text-muted">8:30</small>
+                                    <div class="col-6 d-flex">
+                                      <small class="mb-0 mr-2 text-muted">Requested on :</small>
+                                      <small class="Last-responded mr-2 mb-0 text-muted requested-on"></small>
                                     </div>
                                   </div>
                                 </div>
@@ -162,9 +165,9 @@
                                       Manage
                                     </button>
                                     <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#">
+                                      <a class="dropdown-item grant-access" href="#">
                                         <i class="fa fa-reply fa-fw"></i>Grant</a>
-                                      <a class="dropdown-item" href="#">
+                                      <a class="dropdown-item deny-access" href="#">
                                         <i class="fa fa-history fa-fw"></i>Deny</a>
                                       
                                     </div>
@@ -177,12 +180,45 @@
                         </div>
                       </div>
         </div>
+        <script>
+          $.ajax({
+            url: 'http://188.166.102.233:3000/api/RequestAccess',
+            success: (data) =>  {
+              console.log(data)
+              data.map(request => {
+                let requestHtml = $('.request:first-child').clone()
+                requestHtml.removeClass('hidden')
+                requestHtml.find('.from-id').html(request.from.split('secureid.')[1])
+                requestHtml.find('.to-id').html(request.to.split('secureid.')[1])
+                requestHtml.find('.txn-id').html(`#TxnId: ${request.transactionId.substring(0,25)}`)
+                requestHtml.find('.requested-on').html(request.timestamp)
+                requestHtml.appendTo('.requests')
+              })
+              $('.grant-access').on('click', (e) => {
+                swal('Access Granted', '', 'success')
+                setTimeout(() => {
+                  swal.close()
+                  e.target.closest('.request').remove()
+                }, 2000)
+              })
+              $('.deny-access').on('click', (e) => {
+                swal('Access Denied', '', 'error')
+                setTimeout(() => {
+                  swal.close()
+                  e.target.closest('.request').remove()
+                }, 2000)
+              })
+            }
+
+          })
+
+        </script>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018.
-               All rights reserved.</span>
+              All rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
               <i class="mdi mdi-heart text-danger"></i> By Team ByteUs
             </span>
@@ -197,8 +233,6 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
