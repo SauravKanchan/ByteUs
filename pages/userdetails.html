@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <script src="../vendors/js/vendor.bundle.addons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -178,6 +179,7 @@
                                   </tbody>
                                 </table>
                                 <script>
+                                  swal('Fetching Users', 'Please Wait')
                                   $.ajax({
                                     url: "http://159.65.149.36:3000/api/User",
                                     success: (data) => {
@@ -195,6 +197,7 @@
                                         `
                                       })
                                       $('tbody#users-table').html(rows)
+                                      swal.close()
                                     }
                                   })
                                 </script>

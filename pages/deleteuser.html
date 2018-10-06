@@ -184,6 +184,7 @@
                       </tbody>
                     </table>
                     <script>
+                      swal('Fetching Users', 'Please Wait')
                       $.ajax({
                         url: "http://159.65.149.36:3000/api/User",
                         success: (data) => {
@@ -204,13 +205,16 @@
                             `
                           })
                           $('tbody#users-table').html(rows)
+                          swal.close()
                         }
                       })
 function deleteUser(userId) {
+  swal('Deleting User', 'Please Wait', 'warning')
   $.ajax({
     type: "DELETE",
     url: `http://159.65.149.36:3000/api/User/${userId}`,
     success: (data) => {
+      swal.close()
       window.location=""
     }
 })

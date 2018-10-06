@@ -142,22 +142,28 @@
                             <p class="card-description">
                               Fill Details
                             </p>
-                            <form class="forms-sample">
+                            <form action="#" class="forms-sample">
                                     <div class="form-group">
-                                            <label for="exampleInputName1">From ID</label>
-                                            <input type="text" class="form-control" id="fromid" placeholder="From ID">
-                                          </div>
+                                      <label for="exampleInputName1">From ID</label>
+                                      <input type="text" class="form-control" id="fromid" placeholder="From ID">
+                                    </div>
                               <div class="form-group">
                                 <label for="exampleInputName1">To ID</label>
                                 <input type="text" class="form-control" id="toid" placeholder="To ID">
                               </div>
-                              <div class="form-group">
-                                <label for="exampleInputEmail3">Transaction ID</label>
-                                <input type="email" class="form-control" id="trasactionid" placeholder="Transaction ID">
-                              </div>
-                              <button type="submit" class="btn btn-success mr-2">Submit</button>
+                              <button type="button" class="btn btn-success mr-2 request-permission">Request</button>
                              <a  class="btn btn-light" href="../index.html">Cancel</a> 
                             </form>
+                            <script>
+                              $('.request-permission').click(() => {
+                                let fromId = $('input#fromid').val()
+                                let toId = $('input#toid').val()
+                                $.ajax({
+                                  url: '/temp',
+                                  method: 'POST',
+                                })
+                              })
+                            </script>
                           </div>
                         </div>
                       </div>
