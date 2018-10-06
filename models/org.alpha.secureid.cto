@@ -47,7 +47,7 @@ asset Aadhaar identified by aadhaarNumber {
   o String aadhaarNumber
   o String firstName
   o String lastName
-  o Date dob
+  o String dob
   o Gender gender
   o String address
 }
