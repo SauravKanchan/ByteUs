@@ -1,5 +1,20 @@
+<!--markpress-opt
+
+{
+	"layout": "random-7d",
+	"autoSplit": true,
+	"sanitize": false,
+	"noEmbed": false,
+	"title": "3d-push",
+	"theme": "light"
+}
+
+markpress-opt-->
+
 # HyperAdhaar
-<img src="https://i.imgur.com/6BFPwpS.png">
+<div style="text-align:center">
+<img style="height:400px;width:700px;text-align-center;" src="http://i.imgur.com/6BFPwpS.png">
+</div>
 
 # Proposed System
 - Making Identity documents using OCR and adding them on the Blockchain.
@@ -18,7 +33,10 @@
 - HyperLedger 50,0000 TPM(Transaction Per Minute) VS Ethereum 1000TPM
 - Immune to the 51% Attack
 
-![Architecture](images/architecture.jpeg)
+<div style="text-align:center">
+<img style="height:400px;width:700px;text-align-center;" src="images/architecture.jpeg">
+</div>
+
 
 # Show Stoppers
 - Tamper-proof private data
