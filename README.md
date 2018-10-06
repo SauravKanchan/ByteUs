@@ -30,7 +30,7 @@ markpress-opt-->
 # HyperLedger Vs Ethereum:
 - Takes no Gas
 - Inefficient
-- HyperLedger 50,0000 TPM(Transaction Per Minute) VS Ehterium 1000TPM
+- HyperLedger 50,0000 TPM(Transaction Per Minute) VS Ethereum 1000TPM
 - Immune to the 51% Attack
 
 <div style="text-align:center">
